@@ -1,0 +1,54 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.2.2.RELEASE")
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+apply plugin: 'spring-boot'
+
+jar {
+    baseName = 'myvote'
+    version =  '0.1.0'
+}
+
+repositories {
+    mavenCentral()
+    maven{url "https://oss.sonatype.org/content/repositories/snapshots/"}
+}
+
+dependencies {
+    compile("org.springframework.boot:spring-boot-starter-web")
+    compile("org.springframework.boot:spring-boot-starter-data-rest")
+    compile ("org.springframework.security:spring-security-web:3.2.6.RELEASE")
+    compile("org.springframework.boot:spring-boot-starter-data-mongodb")
+    compile("org.mongodb:mongo-java-driver:3.0.0-rc1")
+    //
+    // compile("com.mongodb:M101J:1.0-SNAPSHOT:jar")
+    compile ("org.apache.kafka:kafka_2.10:0.8.2.1")
+    compile("org.springframework.integration:spring-integration-kafka:1.1.1.RELEASE")
+
+    //compile ("org.springframework:spring-context-support:4.1.5.RELEASE")
+    //compile group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.2'
+    //compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.2'
+    //compile group: 'org.apache.logging.log4j', name: 'log4j-slf4j-impl', version: '2.2'
+
+    //compile.exclude group:"org.slf4j:log4j-over-slf4j:1.7.5"
+    //compile("org.springframework.boot:spring-boot-starter-security")
+    //testCompile("org.springframework.boot:spring-boot-starter-test")
+    //compile("org.springframework.http.converter.json.MappingJackson2HttpMessageConverter")
+    testCompile("junit:junit")
+}
+configurations.all {
+    //compile.exclude group: 'org.slf4j', module: 'slf4j-log4j12'
+    exclude module:'slf4j-log4j12'
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.3'
+}
